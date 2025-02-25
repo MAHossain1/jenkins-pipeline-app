@@ -13,7 +13,7 @@ pipeline {
                     script {
                         checkout scmGit(
                             branches: [[name: '*/main']], // Change if needed
-                            userRemoteConfigs: [[url: 'https://github.com/MAHossain1/java-graven-app.git']]
+                            userRemoteConfigs: [[url: 'https://github.com/MAHossain1/jenkins-pipeline-app.git']]
                         )
                     }
                 }
