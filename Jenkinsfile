@@ -3,6 +3,10 @@ def gv
 pipeline {
     agent any
 
+    environment {
+        NEW_VERSION = '2.1'
+    }
+
     tools {
         maven 'Maven'
     }
@@ -19,6 +23,15 @@ pipeline {
                 }
         }
 
+         stage('test') {
+            steps {
+                script {
+                    echo "testing the application version ${NEW_VERSION}"
+                   
+                }
+            }
+        }
+
         stage('Build jar') {
             steps {
                 script {
@@ -32,9 +45,9 @@ pipeline {
                 script {
                     echo "building the docker image"
                     withCredentials([usernamePassword(credentialsId: 'docker_hub_repo', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        sh 'docker build -t arman04/java-maven-app:jma-2.0 .'
+                        sh 'docker build -t arman04/java-maven-app:jma-2.1 .'
                         sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
-                        sh 'docker push arman04/java-maven-app:jma-2.0'
+                        sh 'docker push arman04/java-maven-app:jma-2.1'
                     }
                 }
             }
