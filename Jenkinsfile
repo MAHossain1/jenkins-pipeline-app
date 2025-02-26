@@ -3,12 +3,18 @@ def gv
 pipeline {
     agent any
 
-    environment {
-        NEW_VERSION = '2.1'
-    }
+    // environment {
+    //     NEW_VERSION = '2.1'
+    // }
 
     tools {
         maven 'Maven'
+    }
+
+    parameters {
+        // string(name: 'VERSION', defaultValue: '1.0', description: 'Please enter the version of the application')
+        choice(name: 'VERSION', choices: ['1.1.0', '2.1.0', '2.2.0'], description: 'Please select the version of the application')
+        booleanParam(name: 'ExecuteTests', defaultValue: true, description: 'Please select the flag')
     }
 
     stages {
@@ -24,9 +30,16 @@ pipeline {
         }
 
          stage('test') {
+            when {
+                expression {
+                     params.ExecuteTests
+                }
+            }
+
+
             steps {
                 script {
-                    echo "testing the application version ${NEW_VERSION}"
+                    echo "testing the application version ${params.VERSION}"
                    
                 }
             }
@@ -55,7 +68,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    echo "deploying the application"
+                    echo "deploying the application ${params.VERSION}"
                 }
             }
         }
