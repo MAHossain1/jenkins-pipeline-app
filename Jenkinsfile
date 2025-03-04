@@ -68,7 +68,8 @@ pipeline {
                     //     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
                     //     sh 'docker push arman04/java-maven-app:jma-2.1'
                     // }
-                    gv.buildImage()
+                    // gv.buildImage()
+                    echo "building the docker image"
                 }
             }
         }
