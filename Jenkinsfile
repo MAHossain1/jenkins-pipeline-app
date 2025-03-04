@@ -52,6 +52,11 @@ pipeline {
         }
 
         stage('Build jar') {
+            when {
+                expression {
+                     BRANCH_NAME == 'main'
+                }
+            }
             steps {
                 script {
                     echo "building the application"
