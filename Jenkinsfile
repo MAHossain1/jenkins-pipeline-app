@@ -27,14 +27,6 @@ pipeline {
         }
 
 
-        stage('Checkout') {
-           steps {
-                    script {
-                        gv.checkout()
-                    }
-                }
-        }
-
         stage('test') {
             when {
                 expression {
