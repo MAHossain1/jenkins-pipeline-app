@@ -46,20 +46,13 @@ pipeline {
         stage('Build jar') {
             steps {
                 script {
-                    echo "building the application"
-                    sh 'mvn package'
+                  gv.buildJar()
                 }
             }
         }
         stage('Building the docker image') {
             steps {
                 script {
-                    // echo "building the docker image"
-                    // withCredentials([usernamePassword(credentialsId: 'docker_hub_repo', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    //     sh 'docker build -t arman04/java-maven-app:jma-2.1 .'
-                    //     sh "echo $PASSWORD | docker login -u $USERNAME --password-stdin"
-                    //     sh 'docker push arman04/java-maven-app:jma-2.1'
-                    // }
                     gv.buildImage()
                 }
             }
@@ -67,7 +60,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // echo "deploying the application ${params.VERSION}"
                     gv.deployApp()
                 }
             }
